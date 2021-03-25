@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button type="button" data-action="start">Start</button>
+    <button type="button" data-action="stop">Stop</button>
+  </body>
+  <script>
+    const colors = [
+      "#FFFFFF",
+      "#2196F3",
+      "#4CAF50",
+      "#FF9800",
+      "#009688",
+      "#795548",
+    ];
+
+    const body = document.body;
+    const startBtn = document.querySelector('[data-action="start"]');
+    const stopBtn = document.querySelector('[data-action="stop"]');
+
+    let intervalId = null;
+
+    startBtn.addEventListener("click", onClickChangeBgColor);
+
+    function onClickChangeBgColor() {
+      intervalId = setInterval(changeBgColor, 700);
+      startBtn.disabled = true;
+    }
+
+    function changeBgColor() {
+      const randomIndex = randomIntegerFromInterval(0, colors.length - 1);
+      body.style.backgroundColor = colors[randomIndex];
+    }
+
+    const randomIntegerFromInterval = (min, max) => {
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    };
+
+    stopBtn.addEventListener("click", onClickStopChanging);
+    function onClickStopChanging() {
+      clearInterval(intervalId);
+      startBtn.disabled = false;
+    }
+  </script>
+</html>
